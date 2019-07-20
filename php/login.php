@@ -7,7 +7,7 @@ $correo_usuario = mysqli_real_escape_string($conexion, $_POST['correo']);
 $contrasena = mysqli_real_escape_string($conexion, $_POST['contrasena']);
 
 //Md5 a la contraseña
-
+$contrasena = md5($contrasena);
 
 //Preparo la query
 $consulta = "SELECT * FROM usuarios WHERE correo='$correo_usuario' AND contrasena='$contrasena'";
