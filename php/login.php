@@ -30,6 +30,9 @@ if($columnas == false){
 
 //Mando mensaje de éxito
 $datos['mensaje'] = '200';
+//Mando nombre y apellido del usuario
+$datos['nombre'] = $columnas['nombre'];;
+$datos['apellido'] = $columnas['apellido'];;
 
 echo json_encode($datos);
 mysqli_close($columnas);
