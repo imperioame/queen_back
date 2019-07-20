@@ -1,33 +1,36 @@
 <?php
 
-include coneccion_a_db.php
+require "conexion.php";
 
 //recibo datos de usuario y contraseña
-$_post();
-
+$correo_usuario = mysqli_real_escape_string($conexion, $_POST['correo']);
+$contrasena = mysqli_real_escape_string($conexion, $_POST['contrasena']);
 
 //Md5 a la contraseña
 
 
 //Preparo la query
-$query = 'SELECT * FROM usuarios WHERE correo = aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+$consulta = "SELECT * FROM usuarios WHERE correo='$correo_usuario' AND contrasena='$contrasena'";
+
 //busco los datos en la bd
+$fila = mysqli_query($conexion, $consulta);
 
-$datos = mysqli_query($coneccion,$query);
+$columnas = mysqli_fetch_assoc( $fila );
 
-while (mysqli_fetch_assoc($datos)){
+$datos = array();
+
+
+//Consulto si tuvo éxito
+if($columnas == false){
+    //mensaje de error, probablemente no sea este, pero sirve
+	$datos['mensaje'] = '401';
+	echo json_encode($datos);
+	exit;
 }
 
+//Mando mensaje de éxito
+$datos['mensaje'] = '200';
 
-//retorno mensaje de éxito o código de error
-if($encontre){
-    echo json_encode('código de éxito');
-}else{
-    echo json_encode('código de error');
-}
-
-
-
-
-
+echo json_encode($datos);
+mysqli_close($columnas);
 ?>

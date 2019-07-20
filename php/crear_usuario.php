@@ -1,10 +1,11 @@
 <?php
-
-include coneccion_a_db.php
+require "conexion.php";
 
 
 //recibo los datos
 $_post();
+$usuario = mysqli_real_escape_string($cnx, $_POST['usuario']);
+$contrasena = mysqli_real_escape_string($cnx, $_POST['clave']);
 
 
 //preparo la query para insertar campos
