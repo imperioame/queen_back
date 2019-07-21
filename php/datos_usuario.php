@@ -5,35 +5,75 @@
     //recibo el dato del usuario
     $usuario = mysqli_real_escape_string($conexion, $_POST['correo']);
 
-    //Preparo la query
-    $consulta = "SELECT * FROM usuarios_has_tableros
+    //Preparo la query para identificar los tableros del usuario
+    $consulta_tableros_de_usuario = "SELECT * FROM usuarios_has_tableros
     INNER JOIN tableros ON tableros.idtableros = usuarios_has_tableros.tableros_idtableros
     INNER JOIN usuarios ON usuarios.idusuarios = usuarios_has_tableros.usuarios_idusuarios
-    INNER JOIN elementos ON elementos.tableros_idtableros = tableros.idtableros
     WHERE correo='$usuario'
     ORDER BY idtableros ASC";
 
 
-//Ver la posibilidad de hacer la query de elementos por separado - adentro del bucle de fetch assoc de tableros
-
     //busco los datos en la bd
-    $fila = mysqli_query($conexion, $consulta);
-    $tableros = array();
-    $elementos = array();
+    $fila_tableros = mysqli_query($conexion, $consulta_tableros_de_usuario);
+    $tableros_a_entregar = array();
+    $elementos_a_entregar = array();
+    
+    $indice_tableros = 0;
 
-    while ($columnas = mysqli_fetch_assoc( $fila )){
-        //Preparo el objeto a enviar
+    while ($columnas_tableros = mysqli_fetch_assoc( $fila_tableros )){
+        //Busco todos los elementos del tablero actual
+        //1)averiguo en que tablero estoy parado:
+        $id_tablero_actual = $columnas_tableros['tableros_idtableros'];
+        
+        //2)Preparo la consulta:
+        $consulta_elementos_del_tablero = "SELECT * FROM elementos
+        INNER JOIN status ON status.idstatus = elementos.status_idstatus
+        WHERE tableros_idtableros='$id_tablero_actual'
+        ORDER BY indice_de_elemento ASC";
+
+
+        //3)Consulto:
+        $fila_elementos = mysqli_query($conexion, $consulta_elementos_del_tablero);
+
+        //4)proceso:
+        $indice_elementos = 0;
+        while($columnas_elementos = mysqli_fetch_assoc($fila_elementos)){
+            $elementos_a_entregar[$index] = array();
+            $elementos_a_entregar[$index]['indice_elemento'] = $columnas_elementos['indice_de_elemento'];
+            $elementos_a_entregar[$index]['es_lista'] = $columnas_elementos['es_lista'];
+            $elementos_a_entregar[$index]['contenido'] = $columnas_elementos['contenido'];
+            $elementos_a_entregar[$index]['fecha_deadline'] = $columnas_elementos['fecha_deadline'];
+            $elementos_a_entregar[$index]['fecha_creacion'] = $columnas_elementos['fecha_creacion'];
+            $elementos_a_entregar[$index]['id_tablero'] = $id_tablero_actual;
+            $elementos_a_entregar[$index]['status'] = $columnas_elementos['titulo'];
+
+            $indice_elementos++;
+        };
+        
+        mysqli_close($columnas_elementos);
+
+        //Proceso el tablero actual
+        $tableros_a_entregar[$indice_tableros] = array();
+        $tableros_a_entregar[$indice_tableros]['id_tablero'] $columnas_tableros['idtableros'];
+        $tableros_a_entregar[$indice_tableros]['titulo'] $columnas_tableros['titulo'];
+        $tableros_a_entregar[$indice_tableros]['es_destacado'] $columnas_tableros['es_destacado'];
+        $tableros_a_entregar[$indice_tableros]['es_oculto'] $columnas_tableros['es_oculto'];
+        $tableros_a_entregar[$indice_tableros]['fecha_creacion'] $columnas_tableros['fecha_creacion'];
+
+        $indice_tableros++;
         
     };
 
-    //Mando mensaje de éxito
-    $datos['mensaje'] = '200';
-    //Mando nombre y apellido del usuario
-    $datos['nombre'] = $columnas['nombre'];;
-    $datos['apellido'] = $columnas['apellido'];;
+    $objeto_maestro_de_datos = array();
 
-    echo json_encode($datos);
-    mysqli_close($columnas);
+    //Mando mensaje de éxito
+    $objeto_maestro_de_datos['mensaje'] = '200';
+    //Mando los arrays
+    $objeto_maestro_de_datos['tableros'] = $elementos_a_entregar;
+    $objeto_maestro_de_datos['elementos'] = $tableros_a_entregar;
+
+    echo json_encode($objeto_maestro_de_datos);
+    mysqli_close($columnas_tableros);
 
 
 ?>
