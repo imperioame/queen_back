@@ -73,7 +73,7 @@
     $objeto_maestro_de_datos['elementos'] = $tableros_a_entregar;
 
     echo json_encode($objeto_maestro_de_datos);
-    mysqli_close($columnas_tableros);
+    mysqli_close($conexion);
 
 
 ?>

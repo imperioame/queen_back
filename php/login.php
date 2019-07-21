@@ -35,5 +35,5 @@ $datos['nombre'] = $columnas['nombre'];
 $datos['apellido'] = $columnas['apellido'];
 
 echo json_encode($datos);
-mysqli_close($columnas);
+mysqli_close($conexion);
 ?>
