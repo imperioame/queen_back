@@ -28,7 +28,7 @@ if($columnas == false){
 	$datos['mensaje'] = '401';
 	echo json_encode($datos);
 	exit;
-}
+};
 
 //Mando mensaje de éxito
 $datos['mensaje'] = '200';
