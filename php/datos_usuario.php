@@ -1,6 +1,8 @@
 <?php
-
     require "conexion.php";
+
+    //Este endpoint devuelve todos los datos de tableros que se tiene de un usuario
+
 
     //recibo el dato del usuario
     $usuario = mysqli_real_escape_string($conexion, $_POST['correo']);

@@ -1,6 +1,8 @@
 <?php
-
 require "conexion.php";
+
+//este endpoint permite al usuario loguearse
+
 
 //recibo datos de usuario y contraseña
 $correo_usuario = mysqli_real_escape_string($conexion, $_POST['correo']);

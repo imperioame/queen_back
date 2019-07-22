@@ -1,6 +1,8 @@
 <?php
 require "conexion.php";
 
+//Este endpoint recibe datos del formulario de creación de usuario y los carga en la bd
+//Es posible que el correo ya exista, si es así, devuelve excepción
 
 //recibo los datos
 $correo = mysqli_real_escape_string($conexion, $_POST['correo']);
