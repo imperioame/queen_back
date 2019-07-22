@@ -8,9 +8,9 @@
     $usuario = mysqli_real_escape_string($conexion, $_POST['correo']);
 
     //Preparo la query para identificar los tableros del usuario
-    $consulta_tableros_de_usuario = "SELECT * FROM usuarios_has_tableros
-    INNER JOIN tableros ON tableros.idtableros = usuarios_has_tableros.tableros_idtableros
-    INNER JOIN usuarios ON usuarios.idusuarios = usuarios_has_tableros.usuarios_idusuarios
+    $consulta_tableros_de_usuario = "SELECT * FROM queen_usuarios_has_tableros
+    INNER JOIN queen_tableros ON queen_tableros.idtableros = queen_usuarios_has_tableros.tableros_idtableros
+    INNER JOIN queen_usuarios ON queen_usuarios.idusuarios = queen_usuarios_has_tableros.usuarios_idusuarios
     WHERE correo='$usuario'
     ORDER BY idtableros ASC";
 
@@ -28,8 +28,8 @@
         $id_tablero_actual = $columnas_tableros['tableros_idtableros'];
         
         //2)Preparo la consulta:
-        $consulta_elementos_del_tablero = "SELECT * FROM elementos
-        INNER JOIN status ON status.idstatus = elementos.status_idstatus
+        $consulta_elementos_del_tablero = "SELECT * FROM queen_elementos
+        INNER JOIN queen_status ON queen_status.idstatus = queen_elementos.status_idstatus
         WHERE tableros_idtableros='$id_tablero_actual'
         ORDER BY indice_de_elemento ASC";
 

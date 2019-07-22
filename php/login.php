@@ -12,7 +12,7 @@ $contrasena = mysqli_real_escape_string($conexion, $_POST['contrasena']);
 $contrasena = md5($contrasena);
 
 //Preparo la query
-$consulta = "SELECT * FROM usuarios WHERE correo='$correo_usuario' AND contrasena='$contrasena'";
+$consulta = "SELECT * FROM queen_usuarios WHERE correo='$correo_usuario' AND contrasena='$contrasena'";
 
 //busco los datos en la bd
 $fila = mysqli_query($conexion, $consulta);

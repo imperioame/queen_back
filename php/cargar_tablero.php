@@ -35,7 +35,7 @@ $array_elementos = $data->elementos;
 //Lo recorro
 foreach($array_tableros as $obj_elemento){
     //Preparo la consulta
-    $consulta = "INSERT INTO `elementos`(`idelementos`, `indice_de_elemento`, ` es_lista`, `contenido`, `fecha_deadline`, `fecha_creacion`, `tableros_idtableros`, `status_idstatus`) 
+    $consulta = "INSERT INTO `queen_elementos`(`idelementos`, `indice_de_elemento`, ` es_lista`, `contenido`, `fecha_deadline`, `fecha_creacion`, `tableros_idtableros`, `status_idstatus`) 
     VALUES ([value-1],[value-2],[value-3],[value-4],[value-5],[value-6],[value-7],[value-8])";
 
     //Lo intento inyectar

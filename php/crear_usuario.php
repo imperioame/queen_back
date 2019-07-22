@@ -14,7 +14,7 @@ $apellido = mysqli_real_escape_string($conexion, $_POST['apellido']);
 $contrasena = md5($contrasena);
 
 //preparo la query para insertar campos
-$consulta = "INSERT INTO `usuarios`(`nombre`, `Apellido`, `correo`, `contrasena`) VALUES ('$nombre','$apellido','$correo','$contrasena')";
+$consulta = "INSERT INTO `queen_usuarios`(`nombre`, `Apellido`, `correo`, `contrasena`) VALUES ('$nombre','$apellido','$correo','$contrasena')";
 
 //hago la consulta - en caso de que el correo exista, me va a tirar error
 try {
