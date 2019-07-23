@@ -21,7 +21,6 @@ try {
     mysqli_query($conexion, $consulta);
     $code = 200;
     $response = 'ok';
-
 }
 catch (exception $e) {
     $response = $e->getMessage();

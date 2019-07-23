@@ -37,22 +37,21 @@
         //3)Consulto:
         $fila_elementos = mysqli_query($conexion, $consulta_elementos_del_tablero);
 
-        //4)proceso:
+        //4)proceso todos los elementos de este tablero:
         $indice_elementos = 0;
         while($columnas_elementos = mysqli_fetch_assoc($fila_elementos)){
-            $elementos_a_entregar[$index] = array();
-            $elementos_a_entregar[$index]['indice_elemento'] = $columnas_elementos['indice_de_elemento'];
-            $elementos_a_entregar[$index]['es_lista'] = $columnas_elementos['es_lista'];
-            $elementos_a_entregar[$index]['contenido'] = $columnas_elementos['contenido'];
-            $elementos_a_entregar[$index]['fecha_deadline'] = $columnas_elementos['fecha_deadline'];
-            $elementos_a_entregar[$index]['fecha_creacion'] = $columnas_elementos['fecha_creacion'];
-            $elementos_a_entregar[$index]['id_tablero'] = $id_tablero_actual;
-            $elementos_a_entregar[$index]['status'] = $columnas_elementos['titulo'];
+            $elementos_a_entregar[$indice_elementos] = array();
+            $elementos_a_entregar[$indice_elementos]['id_elemento'] = $columnas_elementos['idelementos'];
+            $elementos_a_entregar[$indice_elementos]['indice_elemento'] = $columnas_elementos['indice_de_elemento'];
+            $elementos_a_entregar[$indice_elementos]['es_lista'] = $columnas_elementos['es_lista'];
+            $elementos_a_entregar[$indice_elementos]['contenido'] = $columnas_elementos['contenido'];
+            $elementos_a_entregar[$indice_elementos]['fecha_deadline'] = $columnas_elementos['fecha_deadline'];
+            $elementos_a_entregar[$indice_elementos]['fecha_creacion'] = $columnas_elementos['fecha_creacion'];
+            $elementos_a_entregar[$indice_elementos]['id_tablero'] = $id_tablero_actual;
+            $elementos_a_entregar[$indice_elementos]['status'] = $columnas_elementos['titulo'];
 
             $indice_elementos++;
         };
-        
-        mysqli_close($columnas_elementos);
 
         //Proceso el tablero actual
         $tableros_a_entregar[$indice_tableros] = array();
@@ -69,7 +68,7 @@
     $objeto_maestro_de_datos = array();
 
     //Mando mensaje de éxito
-    $objeto_maestro_de_datos['mensaje'] = '200';
+    $objeto_maestro_de_datos['mensaje'] = 'Envío datos';
     //Mando los arrays
     $objeto_maestro_de_datos['tableros'] = $elementos_a_entregar;
     $objeto_maestro_de_datos['elementos'] = $tableros_a_entregar;
