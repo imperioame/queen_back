@@ -22,9 +22,11 @@ foreach($array_tableros as $obj_tablero){
     try {
         mysqli_query($conexion, $consulta);
         $response = '200';
+        $code = 200;
     }
     catch (exception $e) {
         $response = $e->getMessage();
+        $code = 500;
         echo json_encode($response);
     };
 };
@@ -42,16 +44,17 @@ foreach($array_tableros as $obj_elemento){
     try {
         mysqli_query($conexion, $consulta);
         $response = '200';
+        $code = 200;
     }
     catch (exception $e) {
         $response = $e->getMessage();
         echo json_encode($response);
+        $code = 500;
     };
 };
 
 
-    
-
+http_response_code($code);
 mysqli_close($conexion);
 
 ?>

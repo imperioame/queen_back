@@ -19,13 +19,17 @@ $consulta = "INSERT INTO `queen_usuarios`(`nombre`, `Apellido`, `correo`, `contr
 //hago la consulta - en caso de que el correo exista, me va a tirar error
 try {
     mysqli_query($conexion, $consulta);
-    $response = '200';
+    $code = 200;
+    $response = 'ok';
+
 }
 catch (exception $e) {
     $response = $e->getMessage();
+    $code = 400;
 }
 
 echo json_encode($response);
+http_response_code($code);
 mysqli_close($conexion);
 
 ?>

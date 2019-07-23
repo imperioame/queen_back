@@ -25,17 +25,21 @@ $datos = array();
 //Consulto si tuvo éxito
 if($columnas == false){
     //mensaje de error, probablemente no sea este, pero sirve
-	$datos['mensaje'] = '401';
+	$datos['mensaje'] = 'El usuario no existe';
+	$code = 401;
+	http_response_code($code);
 	echo json_encode($datos);
 	exit;
 };
 
 //Mando mensaje de éxito
-$datos['mensaje'] = '200';
+$datos['mensaje'] = 'Envío datos';
+$code = 200;
 //Mando nombre y apellido del usuario
 $datos['nombre'] = $columnas['nombre'];
 $datos['apellido'] = $columnas['apellido'];
 
 echo json_encode($datos);
+http_response_code($code);
 mysqli_close($conexion);
 ?>

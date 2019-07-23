@@ -2,7 +2,7 @@
 header("Access-Control-Allow-Origin: *");
 
 $servidor = 'localhost';
-$usuario = 'distrig_queen';
+$usuario = 'distritog_queen';
 $contrasena = 'HolaHola1!';
 $db = 'distritog_id';
 

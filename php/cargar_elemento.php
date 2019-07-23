@@ -16,18 +16,21 @@ $columna = mysqli_fetch_assoc( $fila );
 
 
 //Preparo la consulta
-$consulta_carga_elemento = "INSERT INTO `queen_elementos`(`indice_de_elemento`, ` es_lista`, `contenido`, `fecha_deadline`, `fecha_creacion`, `tableros_idtableros`, `status_idstatus`) VALUES ('$elemento->indice_elemento','$elemento->es_lista','$elemento->contenido','$elemento->fecha_deadline','$elemento->fecha_creacion','$elemento->id_tablero','$columnas['titulo']')";
+$consulta_carga_elemento = "INSERT INTO `queen_elementos`(`indice_de_elemento`, ` es_lista`, `contenido`, `fecha_deadline`, `fecha_creacion`, `tableros_idtableros`, `status_idstatus`) VALUES ('$elemento->indice_elemento','$elemento->es_lista','$elemento->contenido','$elemento->fecha_deadline','$elemento->fecha_creacion','$elemento->id_tablero','".$columnas['titulo']."')";
 
 //Lo intento inyectar
 try {
     mysqli_query($conexion, $consulta_carga_elemento);
     $response = mysqli_insert_id($conexion);
+    $code = 200;
 }
 catch (exception $e) {
     $response = '-1';
+    $code = 500;
 };
 
 echo json_encode($response);
+http_response_code($code);
 mysqli_close($conexion);
 
 ?>
