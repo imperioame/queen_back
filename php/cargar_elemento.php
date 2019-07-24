@@ -26,7 +26,7 @@ try {
 }
 catch (exception $e) {
     $response = '-1';
-    $code = 500;
+    $code = 404;
 };
 
 echo json_encode($response);
