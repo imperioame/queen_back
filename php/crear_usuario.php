@@ -17,6 +17,18 @@ $contrasena = md5($contrasena);
 //preparo la query para insertar campos
 $consulta = "INSERT INTO `queen_usuarios`(`nombre`, `Apellido`, `correo`, `contrasena`) VALUES ('$nombre','$apellido','$correo','$contrasena')";
 
+$exito = mysqli_query($conexion, $consulta);
+if ($exito){
+    mysqli_query($conexion, $consulta);
+    $code = 200;
+    $response = 'ok';
+}else{
+    $response = 'Usuario ya existe';
+    $code = 400;
+}
+
+
+/*
 //hago la consulta - en caso de que el correo exista, me va a tirar error
 try {
     mysqli_query($conexion, $consulta);
@@ -27,7 +39,7 @@ catch (exception $e) {
     $response = $e->getMessage();
     $code = 400;
 }
-
+*/
 echo json_encode($response);
 http_response_code($code);
 mysqli_close($conexion);
