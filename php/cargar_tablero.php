@@ -1,4 +1,5 @@
 <?php
+header("Access-Control-Allow-Origin: *");
 require "conexion.php";
 
 //Este endpoint recibe el objeto maestro de datos de la app, la despedaza y la guarda en las tablas que corresponde

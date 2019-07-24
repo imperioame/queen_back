@@ -1,4 +1,5 @@
 <?php
+header("Access-Control-Allow-Origin: *");
 require "conexion.php";
 
 //Este endpoint recibe datos del formulario de creación de usuario y los carga en la bd

@@ -1,4 +1,5 @@
 <?php
+header("Access-Control-Allow-Origin: *");
 require "conexion.php";
 
 //Este endpoint recibe un nuevo elemento de algún tablero, lo carga en la bd y devuelve el id

@@ -1,6 +1,4 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-
 $servidor = 'localhost';
 $usuario = 'distritog_queen';
 $contrasena = 'HolaHola1!';

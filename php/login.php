@@ -1,4 +1,5 @@
 <?php
+header("Access-Control-Allow-Origin: *");
 require "conexion.php";
 
 //este endpoint permite al usuario loguearse
