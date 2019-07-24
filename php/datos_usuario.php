@@ -58,11 +58,11 @@ while ($columnas_tableros = mysqli_fetch_assoc( $fila_tableros )){
 
     //Proceso el tablero actual
     $tableros_a_entregar[$indice_tableros] = array();
-    $tableros_a_entregar[$indice_tableros]['id_tablero'] $columnas_tableros['idtableros'];
-    $tableros_a_entregar[$indice_tableros]['titulo'] $columnas_tableros['titulo'];
-    $tableros_a_entregar[$indice_tableros]['es_destacado'] $columnas_tableros['es_destacado'];
-    $tableros_a_entregar[$indice_tableros]['es_oculto'] $columnas_tableros['es_oculto'];
-    $tableros_a_entregar[$indice_tableros]['fecha_creacion'] $columnas_tableros['fecha_creacion'];
+    $tableros_a_entregar[$indice_tableros]['id_tablero'] = $columnas_tableros['idtableros'];
+    $tableros_a_entregar[$indice_tableros]['titulo'] = $columnas_tableros['titulo'];
+    $tableros_a_entregar[$indice_tableros]['es_destacado'] = $columnas_tableros['es_destacado'];
+    $tableros_a_entregar[$indice_tableros]['es_oculto'] = $columnas_tableros['es_oculto'];
+    $tableros_a_entregar[$indice_tableros]['fecha_creacion'] = $columnas_tableros['fecha_creacion'];
 
     $indice_tableros++;
     //Encontré:
