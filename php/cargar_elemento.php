@@ -19,7 +19,19 @@ $columna = mysqli_fetch_assoc( $fila );
 //Preparo la consulta
 $consulta_carga_elemento = "INSERT INTO `queen_elementos`(`indice_de_elemento`, ` es_lista`, `contenido`, `fecha_deadline`, `fecha_creacion`, `tableros_idtableros`, `status_idstatus`) VALUES ('$elemento->indice_elemento','$elemento->es_lista','$elemento->contenido','$elemento->fecha_deadline','$elemento->fecha_creacion','$elemento->id_tablero','".$columnas['titulo']."')";
 
+$response = array();
+
 //Lo intento inyectar
+$exito = mysqli_query($conexion, $consulta_carga_elemento);
+if ($exito){
+    $response['id_elemento'] = mysqli_insert_id($conexion);
+    $code = 200;
+    $response['mensaje'] = 'ok';
+}else{
+    $response['mensaje'] = 'No se pudo realizar la carga';
+    $code = 400;
+}
+/*
 try {
     mysqli_query($conexion, $consulta_carga_elemento);
     $response = mysqli_insert_id($conexion);
@@ -29,7 +41,7 @@ catch (exception $e) {
     $response = '-1';
     $code = 404;
 };
-
+*/
 echo json_encode($response);
 http_response_code($code);
 mysqli_close($conexion);
