@@ -21,6 +21,8 @@ $fila_tableros = mysqli_query($conexion, $consulta_tableros_de_usuario);
 $tableros_a_entregar = array();
 $elementos_a_entregar = array();
 
+//Mensaje en caso de que no encuentre nada
+$code = 404;
 $indice_tableros = 0;
 
 while ($columnas_tableros = mysqli_fetch_assoc( $fila_tableros )){
@@ -63,6 +65,8 @@ while ($columnas_tableros = mysqli_fetch_assoc( $fila_tableros )){
     $tableros_a_entregar[$indice_tableros]['fecha_creacion'] $columnas_tableros['fecha_creacion'];
 
     $indice_tableros++;
+    //Encontré:
+    $code = 200;
     
 };
 
@@ -74,6 +78,7 @@ $objeto_maestro_de_datos['mensaje'] = 'Envío datos';
 $objeto_maestro_de_datos['tableros'] = $elementos_a_entregar;
 $objeto_maestro_de_datos['elementos'] = $tableros_a_entregar;
 
+http_response_code($code);
 echo json_encode($objeto_maestro_de_datos);
 mysqli_close($conexion);
 
