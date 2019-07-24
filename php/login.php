@@ -38,7 +38,7 @@ $datos['mensaje'] = 'Envío datos';
 $code = 200;
 //Mando nombre y apellido del usuario
 $datos['nombre'] = $columnas['nombre'];
-$datos['apellido'] = $columnas['apellido'];
+$datos['apellido'] = $columnas['Apellido'];
 
 echo json_encode($datos);
 http_response_code($code);
