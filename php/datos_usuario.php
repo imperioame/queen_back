@@ -22,8 +22,13 @@ $tableros_a_entregar = array();
 $elementos_a_entregar = array();
 
 //Mensaje en caso de que no encuentre nada
-$code = 404;
+
 $indice_tableros = 0;
+
+$objeto_maestro_de_datos = array();
+//Mando mensaje de éxito
+$objeto_maestro_de_datos['mensaje'] = 'No hay datos del usuario';
+$code = 404;
 
 while ($columnas_tableros = mysqli_fetch_assoc( $fila_tableros )){
     //Busco todos los elementos del tablero actual
@@ -67,13 +72,12 @@ while ($columnas_tableros = mysqli_fetch_assoc( $fila_tableros )){
     $indice_tableros++;
     //Encontré:
     $code = 200;
+    $objeto_maestro_de_datos['mensaje'] = 'Envio datos';
     
 };
 
-$objeto_maestro_de_datos = array();
 
-//Mando mensaje de éxito
-$objeto_maestro_de_datos['mensaje'] = 'Envío datos';
+
 //Mando los arrays
 $objeto_maestro_de_datos['tableros'] = $elementos_a_entregar;
 $objeto_maestro_de_datos['elementos'] = $tableros_a_entregar;
