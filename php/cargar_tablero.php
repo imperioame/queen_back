@@ -8,6 +8,7 @@ require "conexion.php";
 $correo_usuario = mysqli_real_escape_string($conexion, $_POST['correo']);
 $tablero = mysqli_real_escape_string($conexion, $_POST['tablero']);
 
+$correo_usuario = json_decode($correo_usuario);
 $tablero = json_decode($tablero);
 
 $response = array();
@@ -40,15 +41,15 @@ if ($exito){
         //Lo intento inyectar
         $exito = mysqli_query($conexion, $consulta_usuario_tablero);
         if (! $exito){
-            $response['mensaje'] = 'No se pudo realizar la carga';
+            $response['mensaje'] = 'No se pudo vincular el usuario con el tablero';
             $code = 400;
         };
     }else{
-        $response['mensaje'] = 'No se pudo realizar la carga';
+        $response['mensaje'] = 'No se encontró el usuario dueño de este tablero';
         $code = 400;
     };
 }else{
-    $response['mensaje'] = 'No se pudo realizar la carga';
+    $response['mensaje'] = 'No se pudo insertar el tablero';
     $code = 400;
 };
 
