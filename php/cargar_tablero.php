@@ -10,13 +10,17 @@ $tablero = mysqli_real_escape_string($conexion, $_POST['tablero']);
 
 $correo_usuario = json_decode($correo_usuario);
 $tablero = json_decode($tablero);
+mail('julianmmame@gmail.com', 'asuto', var_dump($tablero));
 
 $response = array();
+$titulo_de_tablero = $tablero['titulo'];
+$es_destacado = $tablero['es_destacado'];
+$es_oculto = $tablero['es_oculto'];
+$fecha_creacion = $tablero['fecha_creacion'];
 
 //Preparo la consulta
 $consulta_tablero = "INSERT INTO `queen_tableros`(`titulo`, `es_destacado`, `es_oculto`, `fecha_creacion`) 
-VALUES ('$tablero->titulo','$tablero->es_destacado','$tablero->es_oculto','$tablero->fecha_creacion')";
-
+VALUES ('$titulo_de_tablero','$es_destacado','$es_oculto','$fecha_creacion')";
 
 //Lo intento inyectar
 $exito = mysqli_query($conexion, $consulta_tablero);
@@ -37,7 +41,7 @@ if ($exito){
         //Encontré al usuario, ahora tengo que hacer la relación tablero - usuario:
         $id_tablero = $response['id_tablero'];
         $consulta_usuario_tablero = "INSERT INTO `queen_usuarios_has_tableros`(`usuarios_idusuarios`, `tableros_idtableros`) VALUES ('$id_usuario','$id_tablero')";
-        
+
         //Lo intento inyectar
         $exito = mysqli_query($conexion, $consulta_usuario_tablero);
         if (! $exito){
