@@ -9,8 +9,8 @@ $correo_usuario = mysqli_real_escape_string($conexion, $_POST['correo']);
 $tablero = mysqli_real_escape_string($conexion, $_POST['tablero']);
 
 
-$correo_usuario = $correo_usuario;
-$tablero = $_POST['tablero'];
+//$correo_usuario = $correo_usuario;
+//$tablero = $_POST['tablero'];
 //mail('julianmmame@gmail.com', 'asuto', var_dump($tablero));
 
 $response = array();
@@ -20,9 +20,9 @@ $es_oculto = $tablero['es_oculto'];
 $fecha_creacion = $tablero['fecha_creacion'];
 
 
-$response['post_tablero'] = $_POST['tablero'];
-$response['post_correo'] = $_POST['correo'];
-$response['callback'] = 'recibí: titulo: '.$titulo_de_tablero.' destacado: '.$es_destacado.' oculto: '.$es_oculto.' fecha de creación: '.$fecha_creacion;
+//$response['post_tablero'] = $_POST['tablero'];
+//$response['post_correo'] = $_POST['correo'];
+//$response['callback'] = 'recibí: titulo: '.$titulo_de_tablero.' destacado: '.$es_destacado.' oculto: '.$es_oculto.' fecha de creación: '.$fecha_creacion;
 
 //Preparo la consulta
 $consulta_tablero = "INSERT INTO `queen_tableros`(`titulo`, `es_destacado`, `es_oculto`, `fecha_creacion`) 
