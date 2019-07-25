@@ -10,13 +10,15 @@ $tablero = mysqli_real_escape_string($conexion, $_POST['tablero']);
 
 $correo_usuario = json_decode($correo_usuario);
 $tablero = json_decode($tablero);
-mail('julianmmame@gmail.com', 'asuto', var_dump($tablero));
+//mail('julianmmame@gmail.com', 'asuto', var_dump($tablero));
 
 $response = array();
 $titulo_de_tablero = $tablero['titulo'];
 $es_destacado = $tablero['es_destacado'];
 $es_oculto = $tablero['es_oculto'];
 $fecha_creacion = $tablero['fecha_creacion'];
+
+$response['callback'] = 'recibí: titulo: '.$titulo_de_tablero.' destacado: '.$es_destacado.' oculto: '.$es_oculto.' fecha de creación: '.$fecha_creacion;
 
 //Preparo la consulta
 $consulta_tablero = "INSERT INTO `queen_tableros`(`titulo`, `es_destacado`, `es_oculto`, `fecha_creacion`) 
