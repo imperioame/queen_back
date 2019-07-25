@@ -13,13 +13,28 @@ $datos = json_decode($datos);
 
 //Empiezo por el array de tableros
 $array_tableros = $data->tableros;
+
+$response = array();
+
 //Lo recorro
 foreach($array_tableros as $obj_tablero){
     //Preparo la consulta
     $consulta = "INSERT INTO `tableros`(`idtableros`, `titulo`, `es_destacado`, `es_oculto`, `fecha_creacion`) 
     VALUES ('$obj_tablero->id_tablero;','$obj_tablero->titulo','$obj_tablero->es_destacado','$obj_tablero->es_oculto','$obj_tablero->fecha_creacion')";
 
-    //Lo intento inyectar
+
+
+//Lo intento inyectar
+$exito = mysqli_query($conexion, $consulta_carga_elemento);
+if ($exito){
+    $response['id_tablero'] = mysqli_insert_id($conexion);
+    $code = 200;
+    $response['mensaje'] = 'ok';
+}else{
+    $response['mensaje'] = 'No se pudo realizar la carga';
+    $code = 400;
+}
+/*
     try {
         mysqli_query($conexion, $consulta);
         $response = '200';
@@ -30,6 +45,7 @@ foreach($array_tableros as $obj_tablero){
         $code = 500;
         echo json_encode($response);
     };
+*/
 };
 
 
