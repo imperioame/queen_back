@@ -13,70 +13,77 @@ $tablero = mysqli_real_escape_string($conexion, $_POST['tablero']);
 //$tablero = $_POST['tablero'];
 //mail('julianmmame@gmail.com', 'asuto', var_dump($tablero));
 
-$response = array();
-$titulo_de_tablero = $tablero['titulo'];
-$es_destacado = $tablero['es_destacado'];
-$es_oculto = $tablero['es_oculto'];
-$fecha_creacion_recibida = $tablero['fecha_creacion'];
+//me aseguro de obtener un correo. sinó no prosigo.
+if($correo_usuario != null and  $correo_usuario != ''){
+    $response = array();
+    $titulo_de_tablero = $tablero['titulo'];
+    $es_destacado = $tablero['es_destacado'];
+    $es_oculto = $tablero['es_oculto'];
+    $fecha_creacion_recibida = $tablero['fecha_creacion'];
 
-if($es_destacado == 'true'){
-    $es_destacado = 1;
-}else{
-    $es_destacado = 0;
-}
+    if($es_destacado == 'true'){
+        $es_destacado = 1;
+    }else{
+        $es_destacado = 0;
+    }
 
-if($es_oculto == 'true'){
-    $es_oculto = 1;
-}else{
-    $es_oculto = 0;
-}
+    if($es_oculto == 'true'){
+        $es_oculto = 1;
+    }else{
+        $es_oculto = 0;
+    }
 
-$fecha_creacion_convertida = strtotime($fecha_creacion_recibida);
-$fecha_creacion = date('d/m/Y', $fecha_creacion_convertida);
+    $fecha_creacion_convertida = strtotime($fecha_creacion_recibida);
+    $fecha_creacion = date('d/m/Y', $fecha_creacion_convertida);
 
 
-//$response['post_tablero'] = $_POST['tablero'];
-//$response['post_correo'] = $_POST['correo'];
-//$response['callback'] = 'recibí: titulo: '.$titulo_de_tablero.' destacado: '.$es_destacado.' oculto: '.$es_oculto.' fecha de creación: '.$fecha_creacion;
+    //$response['post_tablero'] = $_POST['tablero'];
+    //$response['post_correo'] = $_POST['correo'];
+    //$response['callback'] = 'recibí: titulo: '.$titulo_de_tablero.' destacado: '.$es_destacado.' oculto: '.$es_oculto.' fecha de creación: '.$fecha_creacion;
 
-//Preparo la consulta
-$consulta_tablero = "INSERT INTO `queen_tableros`(`titulo`, `es_destacado`, `es_oculto`, `fecha_creacion`) 
-VALUES ('$titulo_de_tablero','$es_destacado','$es_oculto','$fecha_creacion')";
+    //Preparo la consulta
+    $consulta_tablero = "INSERT INTO `queen_tableros`(`titulo`, `es_destacado`, `es_oculto`, `fecha_creacion`) 
+    VALUES ('$titulo_de_tablero','$es_destacado','$es_oculto','$fecha_creacion')";
 
-//Lo intento inyectar
-$exito = mysqli_query($conexion, $consulta_tablero);
-if ($exito){
-    $response['id_tablero'] = mysqli_insert_id($conexion);
-    $code = 200;
-    $response['mensaje'] = 'ok';
-
-    //Continuo................
-
-    //Averiguo que id tiene este usuario:
-    $consulta_usuario = "SELECT * FROM `queen_usuarios` WHERE `correo`= '$correo_usuario'";
-    $exito = mysqli_query($conexion, $consulta_usuario);
+    //Lo intento inyectar
+    $exito = mysqli_query($conexion, $consulta_tablero);
     if ($exito){
-        $columnas = mysqli_fetch_assoc( $exito );
-        $id_usuario = $columnas['idusuarios'];
+        $response['id_tablero'] = mysqli_insert_id($conexion);
+        $code = 200;
+        $response['mensaje'] = 'ok';
 
-        //Encontré al usuario, ahora tengo que hacer la relación tablero - usuario:
-        $id_tablero = $response['id_tablero'];
-        $consulta_usuario_tablero = "INSERT INTO `queen_usuarios_has_tableros`(`usuarios_idusuarios`, `tableros_idtableros`) VALUES ('$id_usuario','$id_tablero')";
+        //Continuo................
 
-        //Lo intento inyectar
-        $exito = mysqli_query($conexion, $consulta_usuario_tablero);
-        if (! $exito){
-            $response['mensaje'] = 'No se pudo vincular el usuario con el tablero';
+        //Averiguo que id tiene este usuario:
+        $consulta_usuario = "SELECT * FROM `queen_usuarios` WHERE `correo`= '$correo_usuario'";
+        $exito = mysqli_query($conexion, $consulta_usuario);
+        if ($exito){
+            $columnas = mysqli_fetch_assoc( $exito );
+            $id_usuario = $columnas['idusuarios'];
+
+            //Encontré al usuario, ahora tengo que hacer la relación tablero - usuario:
+            $id_tablero = $response['id_tablero'];
+            $consulta_usuario_tablero = "INSERT INTO `queen_usuarios_has_tableros`(`usuarios_idusuarios`, `tableros_idtableros`) VALUES ('$id_usuario','$id_tablero')";
+
+            //Lo intento inyectar
+            $exito = mysqli_query($conexion, $consulta_usuario_tablero);
+            if (! $exito){
+                $response['mensaje'] = 'No se pudo vincular el usuario con el tablero';
+                $code = 400;
+            };
+        }else{
+            $response['mensaje'] = 'No se encontró el usuario dueño de este tablero';
             $code = 400;
         };
     }else{
-        $response['mensaje'] = 'No se encontró el usuario dueño de este tablero';
+        $response['mensaje'] = 'No se pudo insertar el tablero';
         $code = 400;
     };
 }else{
-    $response['mensaje'] = 'No se pudo insertar el tablero';
+    $response['mensaje'] = 'No se recibió usuario, no se puede insertar el tablero';
     $code = 400;
 };
+
 
 echo json_encode($response);
 http_response_code($code);
