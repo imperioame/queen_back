@@ -13,9 +13,11 @@ $tablero = mysqli_real_escape_string($conexion, $_POST['tablero']);
 //$tablero = $_POST['tablero'];
 //mail('julianmmame@gmail.com', 'asuto', var_dump($tablero));
 
+$response = array();
+
 //me aseguro de obtener un correo. sinó no prosigo.
 if($correo_usuario != null and  $correo_usuario != ''){
-    $response = array();
+
     $id_tablero_a_actualizar = $tablero['id_tablero'];
     $titulo_de_tablero = $tablero['titulo'];
     $es_destacado = $tablero['es_destacado'];
