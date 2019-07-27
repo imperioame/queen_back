@@ -14,7 +14,7 @@ $response = array();
 if($correo_usuario != null and  $correo_usuario != ''){
     
     //Preparo la consulta:
-    $consulta_tablero = "DELETE FROM `queen_tableros` WHERE `idtableros` = $id_tablero";
+    $consulta_tablero = "DELETE FROM `queen_elementos` WHERE `tableros_idtableros` = $id_tablero";
 
     $exito = mysqli_query($conexion, $consulta_tablero);
     if($exito){

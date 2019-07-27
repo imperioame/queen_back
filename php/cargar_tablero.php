@@ -105,7 +105,7 @@ if($correo_usuario != null and  $correo_usuario != ''){
 
 }else{
     $response['mensaje'] = 'No se recibió usuario, no se pudo ejecutar la acción';
-    $code = 400;
+    $code = 401;
 };
 
 
