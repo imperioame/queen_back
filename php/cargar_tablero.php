@@ -13,7 +13,7 @@ $tablero = $_POST['tablero'];
 //$tablero = $_POST['tablero'];
 //mail('julianmmame@gmail.com', 'asuto', var_dump($tablero));
 
-$response = array();
+//$response = array();
 
 //me aseguro de obtener un correo. sinó no prosigo.
 if($correo_usuario != null and  $correo_usuario != ''){
@@ -94,7 +94,7 @@ if($correo_usuario != null and  $correo_usuario != ''){
                 $code = 400;
             };
         }catch (exception $e) {
-            $response['mensaje'] = 'Hubo un error de SQL al intentar seleccionar el status';
+            $response['mensaje'] = 'Hubo un error de SQL.';
             $response['mensaje_extra'] = $e;
             $code = 400;
         };
@@ -106,15 +106,23 @@ if($correo_usuario != null and  $correo_usuario != ''){
         SET `titulo`= '$titulo_de_tablero',`es_destacado`= '$es_destacado',`es_oculto`= '$es_oculto',`fecha_creacion`= '$fecha_creacion'
         WHERE `idtableros` = '$id_tablero_a_actualizar'";
         
-        $exito = mysqli_query($conexion, $consulta_tablero);
+        try{
+            $exito = mysqli_query($conexion, $consulta_tablero);
 
-        if($exito){
-            $code = 200;
-            $response['mensaje'] = 'Se ha actualizado el tablero correctamente';
-        }else{
-            $response['mensaje'] = 'No se pudo actualizar el tablero';
+            if($exito){
+                $code = 200;
+                $response['mensaje'] = 'Se ha actualizado el tablero correctamente';
+            }else{
+                $response['mensaje'] = 'No se pudo actualizar el tablero';
+                $code = 400;
+            };
+
+        }catch (exception $e) {
+            $response['mensaje'] = 'Hubo un error de SQL.';
+            $response['mensaje_extra'] = $e;
             $code = 400;
         };
+        
     };
 
 }else{

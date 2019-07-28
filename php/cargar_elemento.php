@@ -8,7 +8,8 @@ require "conexion.php";
 $elemento = mysqli_real_escape_string($conexion, $_POST['elemento']);
 $correo_usuario = mysqli_real_escape_string($conexion, $_POST['correo']);
 
-$response = array();
+//$response = array();
+$response['mensaje'] = 'test';
 
 //me aseguro de obtener un correo. sinó no prosigo.
 if($correo_usuario != null and  $correo_usuario != ''){
@@ -57,22 +58,17 @@ if($correo_usuario != null and  $correo_usuario != ''){
                 $consulta_carga_elemento = "INSERT INTO `queen_elementos`(`indice_de_elemento`, ` es_lista`, `contenido`, `fecha_deadline`, `fecha_creacion`, `tableros_idtableros`, `status_idstatus`)
                 VALUES ('$indice','$es_lista','$contenido','$fecha_deadline','$fecha_creacion','$id_tablero','$id_status')";
 
-                try{
-                    //Lo intento inyectar
-                    $exito = mysqli_query($conexion, $consulta_carga_elemento);
-                    if ($exito){
-                        $response['id_elemento'] = mysqli_insert_id($conexion);
-                        $code = 200;
-                        $response['mensaje'] = 'Se cargó de un nuevo elemento';
-                    }else{
-                        $response['mensaje'] = 'No se pudo realizar la carga del nuevo elemento';
-                        $code = 400;
-                    };
-                }catch (exception $e) {
-                    $response['mensaje'] = 'Hubo un error de SQL al intentar seleccionar el status';
-                    $response['mensaje_extra'] = $e;
+                //Lo intento inyectar
+                $exito = mysqli_query($conexion, $consulta_carga_elemento);
+                if ($exito){
+                    $response['id_elemento'] = mysqli_insert_id($conexion);
+                    $code = 200;
+                    $response['mensaje'] = 'Se cargó de un nuevo elemento';
+                }else{
+                    $response['mensaje'] = 'No se pudo realizar la carga del nuevo elemento';
                     $code = 400;
                 };
+                
                 
 
             }else{
