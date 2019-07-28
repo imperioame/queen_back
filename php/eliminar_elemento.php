@@ -31,12 +31,12 @@ if($correo_usuario != null and  $correo_usuario != ''){
         $response['mensaje'] = 'Hubo un error de SQL.';
         $response['mensaje_extra'] = $e;
         $code = 400;
-    };
+    }
 
 }else{
     $response['mensaje'] = 'No se recibió usuario, no se pudo ejecutar la acción';
     $code = 401;
-};
+}
 
 echo json_encode($response);
 http_response_code($code);

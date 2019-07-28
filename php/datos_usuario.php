@@ -63,7 +63,7 @@ try{
             $elementos_a_entregar[$indice_elementos]['status'] = $columnas_elementos['titulo'];
 
             $indice_elementos++;
-        };
+        }
 
         //Proceso el tablero actual
         $tableros_a_entregar[$indice_tableros] = array();
@@ -78,7 +78,7 @@ try{
         $code = 200;
         $objeto_maestro_de_datos['mensaje'] = 'Envio datos';
         
-    };
+    }
 
 
 
@@ -89,7 +89,7 @@ try{
     $response['mensaje'] = 'Hubo un error de SQL.';
     $response['mensaje_extra'] = $e;
     $code = 400;
-};
+}
 
 
 http_response_code($code);

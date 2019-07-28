@@ -32,7 +32,7 @@ try{
     $response['mensaje'] = 'Hubo un error de SQL';
     $response['mensaje_extra'] = $e;
     $code = 400;
-};
+}
 
 echo json_encode($response);
 http_response_code($code);

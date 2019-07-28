@@ -32,7 +32,7 @@ try {
 		http_response_code($code);
 		echo json_encode($datos);
 		exit;
-	};
+	}
 
 	//Mando mensaje de éxito
 	$datos['mensaje'] = 'Envío datos';
@@ -45,7 +45,7 @@ catch (exception $e) {
     $response['mensaje'] = 'Hubo un error en la conexión a la bd.';
     $response['mensaje_extra'] = $e;
     $code = 400;
-};
+}
 
 
 echo json_encode($datos);

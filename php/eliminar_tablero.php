@@ -25,19 +25,19 @@ if($correo_usuario != null and  $correo_usuario != ''){
         }else{
             $response['mensaje'] = 'No se ha podido eliminar el tablero por error de SQL';
             $code = 400;
-        };
+        }
 
     }catch (exception $e) {
         $response['mensaje'] = 'Hubo un error de SQL.';
         $response['mensaje_extra'] = $e;
         $code = 400;
-    };
+    }
     
 
 }else{
     $response['mensaje'] = 'No se recibió usuario, no se pudo ejecutar la acción';
     $code = 401;
-};
+}
 
 
 echo json_encode($response);

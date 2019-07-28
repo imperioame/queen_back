@@ -36,13 +36,13 @@ if($correo_usuario != null and  $correo_usuario != ''){
         $es_destacado = 1;
     }else{
         $es_destacado = 0;
-    };
+    }
     
     if($es_oculto == 'true'|| $es_oculto == true){
         $es_oculto = 1;
     }else{
         $es_oculto = 0;
-    };
+    }
     */
 
     $fecha_creacion_convertida = strtotime($fecha_creacion_recibida);
@@ -84,20 +84,20 @@ if($correo_usuario != null and  $correo_usuario != ''){
                     if (! $exito){
                         $response['mensaje'] = 'No se pudo vincular el usuario con el tablero';
                         $code = 400;
-                    };
+                    }
                 }else{
                     $response['mensaje'] = 'No se encontró el usuario dueño de este tablero';
                     $code = 400;
-                };
+                }
             }else{
                 $response['mensaje'] = 'No se pudo insertar el tablero';
                 $code = 400;
-            };
+            }
         }catch (exception $e) {
             $response['mensaje'] = 'Hubo un error de SQL.';
             $response['mensaje_extra'] = $e;
             $code = 400;
-        };
+        }
 
         
     }else{
@@ -115,20 +115,20 @@ if($correo_usuario != null and  $correo_usuario != ''){
             }else{
                 $response['mensaje'] = 'No se pudo actualizar el tablero';
                 $code = 400;
-            };
+            }
 
         }catch (exception $e) {
             $response['mensaje'] = 'Hubo un error de SQL.';
             $response['mensaje_extra'] = $e;
             $code = 400;
-        };
+        }
         
-    };
+    }
 
 }else{
     $response['mensaje'] = 'No se recibió usuario, no se pudo ejecutar la acción';
     $code = 401;
-};
+}
 
 
 echo json_encode($response);

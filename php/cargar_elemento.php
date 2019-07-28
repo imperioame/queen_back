@@ -39,7 +39,7 @@ if($correo_usuario != null and  $correo_usuario != ''){
         $es_destacado = 1;
     }else{
         $es_destacado = 0;
-    };
+    }
     */
 
     //Formateo datos:
@@ -76,7 +76,7 @@ if($correo_usuario != null and  $correo_usuario != ''){
                 }else{
                     $response['mensaje'] = 'No se pudo realizar la carga del nuevo elemento';
                     $code = 400;
-                };
+                }
                 
                 
 
@@ -95,22 +95,22 @@ if($correo_usuario != null and  $correo_usuario != ''){
                     }else{
                         $response['mensaje'] = 'No se pudo actualizar el elemento.';
                         $code = 400;
-                    };
-                }else{
+                    }
+                }catch (exception $e) {
                     $response['mensaje'] = 'No se pudo realizar la carga del nuevo elemento por error de SQL';
                     $code = 400;
-                };
-            };
+                }
+            }
         }else{
             $response['mensaje'] = 'Hubo un error en la búsqueda del Status asociado al elemento';
             $code = 401;
-        };
+        }
     }
     catch (exception $e) {
         $response['mensaje'] = 'Hubo un error de SQL al intentar seleccionar el status';
         $response['mensaje_extra'] = $e;
         $code = 400;
-    };
+    }
 
 
 
@@ -118,7 +118,7 @@ if($correo_usuario != null and  $correo_usuario != ''){
 }else{
     $response['mensaje'] = 'No se recibió usuario, no se pudo ejecutar la acción';
     $code = 401;
-};
+}
 
 echo json_encode($response);
 http_response_code($code);
