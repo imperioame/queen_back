@@ -24,17 +24,20 @@ if($correo_usuario != null and  $correo_usuario != ''){
     $es_oculto = $tablero['es_oculto'];
     $fecha_creacion_recibida = $tablero['fecha_creacion'];
 
+    /*
+    Corregí en front: ahora los datos se almacenan y envían como 0 o 1
     if($es_destacado == 'true' || $es_destacado == true){
         $es_destacado = 1;
     }else{
         $es_destacado = 0;
     };
-
+    
     if($es_oculto == 'true'|| $es_oculto == true){
         $es_oculto = 1;
     }else{
         $es_oculto = 0;
     };
+    */
 
     $fecha_creacion_convertida = strtotime($fecha_creacion_recibida);
     $fecha_creacion = date('d/m/Y', $fecha_creacion_convertida);

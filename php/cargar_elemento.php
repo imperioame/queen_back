@@ -23,13 +23,16 @@ if($correo_usuario != null and  $correo_usuario != ''){
     $fecha_creacion_recibida = $elemento['fecha_creacion'];
     //$titulo = $columnas['titulo'];
 
-    //Formateo datos:
+    /*
+    //Corregí en el frontend: ahora los datos se almacenan y envían como 0 o 1
     if($es_lista == 'true' || $es_lista == true){
         $es_destacado = 1;
     }else{
         $es_destacado = 0;
     };
+    */
 
+    //Formateo datos:
     $fecha_deadline_convertida = strtotime($fecha_deadline_recibida);
     $fecha_deadline = date('d/m/Y', $fecha_deadline_convertida);
     
