@@ -57,40 +57,49 @@ if($correo_usuario != null and  $correo_usuario != ''){
         $consulta_tablero = "INSERT INTO `queen_tableros`(`titulo`, `es_destacado`, `es_oculto`, `fecha_creacion`) 
         VALUES ('$titulo_de_tablero','$es_destacado','$es_oculto','$fecha_creacion')";
 
-        //Lo intento inyectar
-        $exito = mysqli_query($conexion, $consulta_tablero);
-        if ($exito){
-            $response['id_tablero'] = mysqli_insert_id($conexion);
-            $code = 200;
-            $response['mensaje'] = 'Se ha creado un nuevo tablero en la bd correctamente.';
-
-            //Continuo................
-
-            //Averiguo que id tiene este usuario:
-            $consulta_usuario = "SELECT * FROM `queen_usuarios` WHERE `correo`= '$correo_usuario'";
-            $exito = mysqli_query($conexion, $consulta_usuario);
+        try{
+            //Lo intento inyectar
+            $exito = mysqli_query($conexion, $consulta_tablero);
             if ($exito){
-                $columnas = mysqli_fetch_assoc( $exito );
-                $id_usuario = $columnas['idusuarios'];
+                $response['id_tablero'] = mysqli_insert_id($conexion);
+                $code = 200;
+                $response['mensaje'] = 'Se ha creado un nuevo tablero en la bd correctamente.';
 
-                //Encontré al usuario, ahora tengo que hacer la relación tablero - usuario:
-                $id_tablero = $response['id_tablero'];
-                $consulta_usuario_tablero = "INSERT INTO `queen_usuarios_has_tableros`(`usuarios_idusuarios`, `tableros_idtableros`) VALUES ('$id_usuario','$id_tablero')";
+                //Continuo................
 
-                //Lo intento inyectar
-                $exito = mysqli_query($conexion, $consulta_usuario_tablero);
-                if (! $exito){
-                    $response['mensaje'] = 'No se pudo vincular el usuario con el tablero';
+                //Averiguo que id tiene este usuario:
+                $consulta_usuario = "SELECT * FROM `queen_usuarios` WHERE `correo`= '$correo_usuario'";
+
+                $exito = mysqli_query($conexion, $consulta_usuario);
+                if ($exito){
+                    $columnas = mysqli_fetch_assoc( $exito );
+                    $id_usuario = $columnas['idusuarios'];
+
+                    //Encontré al usuario, ahora tengo que hacer la relación tablero - usuario:
+                    $id_tablero = $response['id_tablero'];
+                    $consulta_usuario_tablero = "INSERT INTO `queen_usuarios_has_tableros`(`usuarios_idusuarios`, `tableros_idtableros`) VALUES ('$id_usuario','$id_tablero')";
+
+                    //Lo intento inyectar
+                    $exito = mysqli_query($conexion, $consulta_usuario_tablero);
+                    if (! $exito){
+                        $response['mensaje'] = 'No se pudo vincular el usuario con el tablero';
+                        $code = 400;
+                    };
+                }else{
+                    $response['mensaje'] = 'No se encontró el usuario dueño de este tablero';
                     $code = 400;
                 };
             }else{
-                $response['mensaje'] = 'No se encontró el usuario dueño de este tablero';
+                $response['mensaje'] = 'No se pudo insertar el tablero';
                 $code = 400;
             };
-        }else{
-            $response['mensaje'] = 'No se pudo insertar el tablero';
+        }catch (exception $e) {
+            $response['mensaje'] = 'Hubo un error de SQL al intentar seleccionar el status';
+            $response['mensaje_extra'] = $e;
             $code = 400;
         };
+
+        
     }else{
         //El tablero existe - debo actualizar
         $consulta_tablero = "UPDATE `queen_tableros`

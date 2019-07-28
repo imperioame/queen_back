@@ -8,6 +8,9 @@ require "conexion.php";
 //recibo el dato del usuario
 $usuario = mysqli_real_escape_string($conexion, $_POST['correo']);
 
+
+
+
 //Preparo la query para identificar los tableros del usuario
 $consulta_tableros_de_usuario = "SELECT * FROM queen_usuarios_has_tableros
 INNER JOIN queen_tableros ON queen_tableros.idtableros = queen_usuarios_has_tableros.tableros_idtableros

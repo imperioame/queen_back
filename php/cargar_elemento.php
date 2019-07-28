@@ -39,71 +39,82 @@ if($correo_usuario != null and  $correo_usuario != ''){
     $fecha_creacion_convertida = strtotime($fecha_creacion_recibida);
     $fecha_creacion = date('Y-m-d', $fecha_creacion_convertida);
 
-
     //averiguo el id de status del status de este elemnto
     $consulta_status = "SELECT * FROM `queen_status` WHERE `titulo` = '$status'";
-    $fila = mysqli_query($conexion, $consulta_status);
 
-    if($fila){
-        $columna = mysqli_fetch_assoc( $fila );
+    try{
+        $fila = mysqli_query($conexion, $consulta_status);
+        if($fila){
+            $columna = mysqli_fetch_assoc( $fila );
 
-        $id_status = $columna['idstatus'];
+            $id_status = $columna['idstatus'];
 
-        //Averiguo si es actualización de ubn elemento existente o creación de uno nuevo
-        if($id_elemento == -1 || $id_elemento == '-1' || $id_elemento == null){
-            //es creación.
+            //Averiguo si es actualización de ubn elemento existente o creación de uno nuevo
+            if($id_elemento == -1 || $id_elemento == '-1' || $id_elemento == null){
+                //es creación.
 
-            //Preparo la consulta
-            $consulta_carga_elemento = "INSERT INTO `queen_elementos`(`indice_de_elemento`, ` es_lista`, `contenido`, `fecha_deadline`, `fecha_creacion`, `tableros_idtableros`, `status_idstatus`)
-            VALUES ('$indice','$es_lista','$contenido','$fecha_deadline','$fecha_creacion','$id_tablero','$id_status')";
+                //Preparo la consulta
+                $consulta_carga_elemento = "INSERT INTO `queen_elementos`(`indice_de_elemento`, ` es_lista`, `contenido`, `fecha_deadline`, `fecha_creacion`, `tableros_idtableros`, `status_idstatus`)
+                VALUES ('$indice','$es_lista','$contenido','$fecha_deadline','$fecha_creacion','$id_tablero','$id_status')";
 
-            //Lo intento inyectar
-            $exito = mysqli_query($conexion, $consulta_carga_elemento);
-            if ($exito){
-                $response['id_elemento'] = mysqli_insert_id($conexion);
-                $code = 200;
-                $response['mensaje'] = 'Se cargó de un nuevo elemento';
+                try{
+                    //Lo intento inyectar
+                    $exito = mysqli_query($conexion, $consulta_carga_elemento);
+                    if ($exito){
+                        $response['id_elemento'] = mysqli_insert_id($conexion);
+                        $code = 200;
+                        $response['mensaje'] = 'Se cargó de un nuevo elemento';
+                    }else{
+                        $response['mensaje'] = 'No se pudo realizar la carga del nuevo elemento';
+                        $code = 400;
+                    };
+                }catch (exception $e) {
+                    $response['mensaje'] = 'Hubo un error de SQL al intentar seleccionar el status';
+                    $response['mensaje_extra'] = $e;
+                    $code = 400;
+                };
+                
+
             }else{
-                $response['mensaje'] = 'No se pudo realizar la carga del nuevo elemento por error de SQL';
-                $code = 400;
+                //es actualización
+                //El tablero existe - debo actualizar
+                $consulta_tablero = "UPDATE `queen_elementos` 
+                SET `indice_de_elemento`='$indice',` es_lista`='$es_lista',`contenido`='$contenido',`fecha_deadline`='$fecha_deadline',`fecha_creacion`='$fecha_creacion',`tableros_idtableros`='$id_tablero'',`status_idstatus`='$id_status'
+                WHERE `idelementos`= '$id_elemento'";
+                
+                try{
+                    $exito = mysqli_query($conexion, $consulta_tablero);
+                    if($exito){
+                        $code = 200;
+                        $response['mensaje'] = 'Se ha actualizado el elemento correctamente';
+                    }else{
+                        $response['mensaje'] = 'No se pudo actualizar el elemento.';
+                        $code = 400;
+                    };
+                }else{
+                    $response['mensaje'] = 'No se pudo realizar la carga del nuevo elemento por error de SQL';
+                    $code = 400;
+                };
             };
-
         }else{
-            //es actualización
-            //El tablero existe - debo actualizar
-            $consulta_tablero = "UPDATE `queen_elementos` 
-            SET `indice_de_elemento`='$indice',` es_lista`='$es_lista',`contenido`='$contenido',`fecha_deadline`='$fecha_deadline',`fecha_creacion`='$fecha_creacion',`tableros_idtableros`='$id_tablero'',`status_idstatus`='$id_status'
-            WHERE `idelementos`= '$id_elemento'";
-            
-            $exito = mysqli_query($conexion, $consulta_tablero);
-            if($exito){
-                $code = 200;
-                $response['mensaje'] = 'Se ha actualizado el elemento correctamente';
-            }else{
-                $response['mensaje'] = 'No se pudo actualizar el elemento por error de SQL';
-                $code = 400;
-            };
+            $response['mensaje'] = 'Hubo un error en la búsqueda del Status asociado al elemento';
+            $code = 401;
         };
-    }else{
-        $response['mensaje'] = 'Hubo un error en la búsqueda del Status asociado al elemento';
-        $code = 401;
+    }
+    catch (exception $e) {
+        $response['mensaje'] = 'Hubo un error de SQL al intentar seleccionar el status';
+        $response['mensaje_extra'] = $e;
+        $code = 400;
     };
+
+
+
+    
 }else{
     $response['mensaje'] = 'No se recibió usuario, no se pudo ejecutar la acción';
     $code = 401;
-}
-
-/*
-try {
-    mysqli_query($conexion, $consulta_carga_elemento);
-    $response = mysqli_insert_id($conexion);
-    $code = 200;
-}
-catch (exception $e) {
-    $response = '-1';
-    $code = 404;
 };
-*/
+
 echo json_encode($response);
 http_response_code($code);
 mysqli_close($conexion);

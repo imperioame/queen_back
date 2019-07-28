@@ -15,30 +15,38 @@ $contrasena = md5($contrasena);
 //Preparo la query
 $consulta = "SELECT * FROM queen_usuarios WHERE correo='$correo_usuario' AND contrasena='$contrasena'";
 
-//busco los datos en la bd
-$fila = mysqli_query($conexion, $consulta);
+try {
+	//busco los datos en la bd
+	$fila = mysqli_query($conexion, $consulta);
 
-$columnas = mysqli_fetch_assoc( $fila );
+	$columnas = mysqli_fetch_assoc( $fila );
 
-$datos = array();
+	$datos = array();
 
 
-//Consulto si tuvo éxito
-if($columnas == false){
-    //mensaje de error, probablemente no sea este, pero sirve
-	$datos['mensaje'] = 'El usuario no existe';
-	$code = 401;
-	http_response_code($code);
-	echo json_encode($datos);
-	exit;
+	//Consulto si tuvo éxito
+	if($columnas == false){
+		//mensaje de error, probablemente no sea este, pero sirve
+		$datos['mensaje'] = 'El usuario no existe';
+		$code = 401;
+		http_response_code($code);
+		echo json_encode($datos);
+		exit;
+	};
+
+	//Mando mensaje de éxito
+	$datos['mensaje'] = 'Envío datos';
+	$code = 200;
+	//Mando nombre y apellido del usuario
+	$datos['nombre'] = $columnas['nombre'];
+	$datos['apellido'] = $columnas['Apellido'];
+}
+catch (exception $e) {
+    $response['mensaje'] = 'Hubo un error en la conexión a la bd.';
+    $response['mensaje_extra'] = $e;
+    $code = 400;
 };
 
-//Mando mensaje de éxito
-$datos['mensaje'] = 'Envío datos';
-$code = 200;
-//Mando nombre y apellido del usuario
-$datos['nombre'] = $columnas['nombre'];
-$datos['apellido'] = $columnas['Apellido'];
 
 echo json_encode($datos);
 http_response_code($code);
