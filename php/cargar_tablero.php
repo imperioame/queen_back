@@ -8,7 +8,8 @@ require "conexion.php";
 $correo_usuario = mysqli_real_escape_string($conexion, $_POST['correo']);
 $tablero = $_POST['tablero'];
 
-$response['mensaje_extra'] = $correo_usuario;
+//Debuggeo:
+//$response['mensaje_extra'] = $correo_usuario;
 //$tablero = $_POST['tablero'];
 //mail('julianmmame@gmail.com', 'asuto', var_dump($tablero));
 

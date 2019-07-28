@@ -5,11 +5,20 @@ require "conexion.php";
 //Este endpoint recibe un nuevo elemento de algún tablero, lo carga en la bd y devuelve el id
 
 //recibo información del usuario y datos a guardar
-$elemento = mysqli_real_escape_string($conexion, $_POST['elemento']);
 $correo_usuario = mysqli_real_escape_string($conexion, $_POST['correo']);
+$elemento = $_POST['elemento'];
 
-//$response = array();
-$response['mensaje'] = 'test';
+$response = array();
+
+//Debuggeo:
+//$response['mensaje'] = 'test';
+//echo json_encode($response);
+/*
+var_dump($response);
+var_dump('test');
+*/
+//http_response_code($code);
+//mysqli_close($conexion);
 
 //me aseguro de obtener un correo. sinó no prosigo.
 if($correo_usuario != null and  $correo_usuario != ''){
