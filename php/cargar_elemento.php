@@ -58,6 +58,7 @@ if($correo_usuario != null and  $correo_usuario != ''){
             $columna = mysqli_fetch_assoc( $fila );
 
             $id_status = $columna['idstatus'];
+            $response['id_status_detectado'] = $id_status;
 
             //Averiguo si es actualización de ubn elemento existente o creación de uno nuevo
             if($id_elemento == -1 || $id_elemento == '-1' || $id_elemento == null){
@@ -97,7 +98,7 @@ if($correo_usuario != null and  $correo_usuario != ''){
                         $code = 400;
                     }
                 }catch (exception $e) {
-                    $response['mensaje'] = 'No se pudo realizar la carga del nuevo elemento por error de SQL';
+                    $response['mensaje'] = 'No se pudo realizar la actualizacion del nuevo elemento por error de SQL';
                     $code = 400;
                 }
             }

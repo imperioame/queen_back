@@ -11,7 +11,7 @@ try{
     $conexion = mysqli_connect($servidor, $usuario, $contrasena, $db);
     mysqli_set_charset($conexion, 'utf8');
 
-    var_dump($conexion);
+    //var_dump($conexion);
 
 }catch (exception $e) {
     $response['mensaje'] = 'Hubo un problema al conectarse a la db';

@@ -54,6 +54,13 @@ CREATE TABLE IF NOT EXISTS `distritog_id`.`queen_status` (
 ENGINE = InnoDB;
 
 
+INSERT INTO `queen_status`(`titulo`, `valor`, `color`) VALUES ('','','');
+INSERT INTO `queen_status`(`titulo`, `valor`, `color`) VALUES ('Nuevo','nuevo','#9CB5FF');
+INSERT INTO `queen_status`(`titulo`, `valor`, `color`) VALUES ('Pendiente','pendiente','#EBD265');
+INSERT INTO `queen_status`(`titulo`, `valor`, `color`) VALUES ('En progreso','en_progreso','#9CB5FF');
+INSERT INTO `queen_status`(`titulo`, `valor`, `color`) VALUES ('Realizado','realizado','#7DF0D4');
+
+
 -- -----------------------------------------------------
 -- Table `queen_db`.`elementos`
 -- -----------------------------------------------------
