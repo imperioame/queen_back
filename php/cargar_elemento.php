@@ -34,10 +34,10 @@ if($correo_usuario != null and  $correo_usuario != ''){
 
     //Formateo datos:
     $fecha_deadline_convertida = strtotime($fecha_deadline_recibida);
-    $fecha_deadline = date('d/m/Y', $fecha_deadline_convertida);
+    $fecha_deadline = date('Y-m-d', $fecha_deadline_convertida);
     
     $fecha_creacion_convertida = strtotime($fecha_creacion_recibida);
-    $fecha_creacion = date('d/m/Y', $fecha_creacion_convertida);
+    $fecha_creacion = date('Y-m-d', $fecha_creacion_convertida);
 
 
     //averiguo el id de status del status de este elemnto

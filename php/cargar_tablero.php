@@ -6,7 +6,7 @@ require "conexion.php";
 
 //recibo información del usuario y datos a guardar
 $correo_usuario = mysqli_real_escape_string($conexion, $_POST['correo']);
-$tablero = mysqli_real_escape_string($conexion, $_POST['tablero']);
+$tablero = $_POST['tablero'];
 
 
 //$correo_usuario = $correo_usuario;
@@ -24,6 +24,12 @@ if($correo_usuario != null and  $correo_usuario != ''){
     $es_oculto = $tablero['es_oculto'];
     $fecha_creacion_recibida = $tablero['fecha_creacion'];
 
+    //Debuggeo:
+    //$response['post_tablero'] = $tablero;
+    //$response['post_correo'] = $_POST['correo'];
+    //$response['callback'] = 'recibí: titulo: '.$titulo_de_tablero.' destacado: '.$es_destacado.' oculto: '.$es_oculto.' fecha de creación: '.$fecha_creacion;
+
+
     /*
     Corregí en front: ahora los datos se almacenan y envían como 0 o 1
     if($es_destacado == 'true' || $es_destacado == true){
@@ -40,12 +46,8 @@ if($correo_usuario != null and  $correo_usuario != ''){
     */
 
     $fecha_creacion_convertida = strtotime($fecha_creacion_recibida);
-    $fecha_creacion = date('d/m/Y', $fecha_creacion_convertida);
-
-    //Debuggeo:
-    //$response['post_tablero'] = $_POST['tablero'];
-    //$response['post_correo'] = $_POST['correo'];
-    //$response['callback'] = 'recibí: titulo: '.$titulo_de_tablero.' destacado: '.$es_destacado.' oculto: '.$es_oculto.' fecha de creación: '.$fecha_creacion;
+    $fecha_creacion = date('Y-m-d', $fecha_creacion_convertida);
+    //$fecha_creacion = $fecha_creacion_convertida;
 
     //Me fijo si debo actualizar o crear un tablero nuevo:
     //Si el id del tablero recibido es '-1' entonces debo crear, sinó, debo actualizar
