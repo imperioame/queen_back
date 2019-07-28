@@ -12,7 +12,7 @@ $correo_usuario = mysqli_real_escape_string($conexion, $_POST['correo']);
 $response['mensaje'] = 'test';
 
 //me aseguro de obtener un correo. sinó no prosigo.
-if($correo_usuario != null or  $correo_usuario != ''){
+if($correo_usuario != null and  $correo_usuario != ''){
 
     $id_elemento = $elemento['id_elemento'];
     $indice = $elemento['indice_elemento'];
