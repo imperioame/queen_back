@@ -28,13 +28,13 @@ if($correo_usuario != null and  $correo_usuario != ''){
         $es_destacado = 1;
     }else{
         $es_destacado = 0;
-    }
+    };
 
     if($es_oculto == 'true'|| $es_oculto == true){
         $es_oculto = 1;
     }else{
         $es_oculto = 0;
-    }
+    };
 
     $fecha_creacion_convertida = strtotime($fecha_creacion_recibida);
     $fecha_creacion = date('d/m/Y', $fecha_creacion_convertida);
@@ -46,7 +46,7 @@ if($correo_usuario != null and  $correo_usuario != ''){
 
     //Me fijo si debo actualizar o crear un tablero nuevo:
     //Si el id del tablero recibido es '-1' entonces debo crear, sinó, debo actualizar
-    if($id_tablero_a_actualizar == -1){
+    if($id_tablero_a_actualizar == -1 || $id_tablero_a_actualizar == '-1' || $id_tablero_a_actualizar == null){
         //El tablero no existe, debo crearlo
         //Preparo la consulta
         $consulta_tablero = "INSERT INTO `queen_tableros`(`titulo`, `es_destacado`, `es_oculto`, `fecha_creacion`) 
@@ -101,7 +101,7 @@ if($correo_usuario != null and  $correo_usuario != ''){
             $response['mensaje'] = 'No se pudo actualizar el tablero';
             $code = 400;
         };
-    }
+    };
 
 }else{
     $response['mensaje'] = 'No se recibió usuario, no se pudo ejecutar la acción';
