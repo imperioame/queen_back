@@ -16,7 +16,7 @@ $tablero = $_POST['tablero'];
 //$response = array();
 
 //me aseguro de obtener un correo. sinó no prosigo.
-if($correo_usuario != null and  $correo_usuario != ''){
+if($correo_usuario != null or  $correo_usuario != ''){
 
     $id_tablero_a_actualizar = $tablero['id_tablero'];
     $titulo_de_tablero = $tablero['titulo'];

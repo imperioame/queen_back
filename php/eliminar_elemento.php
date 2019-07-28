@@ -11,7 +11,7 @@ $id_tablero = mysqli_real_escape_string($conexion, $_POST['id_tablero']);
 //$response = array();
 
 //me aseguro de obtener un correo. sinó no prosigo.
-if($correo_usuario != null and  $correo_usuario != ''){
+if($correo_usuario != null or  $correo_usuario != ''){
     
     //Preparo la consulta:
     $consulta_tablero = "DELETE FROM `queen_elementos` WHERE `tableros_idtableros` = $id_tablero";
