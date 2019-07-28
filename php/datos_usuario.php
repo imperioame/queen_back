@@ -79,8 +79,8 @@ while ($columnas_tableros = mysqli_fetch_assoc( $fila_tableros )){
 
 
 //Mando los arrays
-$objeto_maestro_de_datos['tableros'] = $elementos_a_entregar;
-$objeto_maestro_de_datos['elementos'] = $tableros_a_entregar;
+$objeto_maestro_de_datos['elementos'] = $elementos_a_entregar;
+$objeto_maestro_de_datos['tableros'] = $tableros_a_entregar;
 
 http_response_code($code);
 echo json_encode($objeto_maestro_de_datos);
