@@ -53,7 +53,7 @@ if($correo_usuario != null and $correo_usuario != ''){
     //averiguo el id de status del status de este elemnto
     $consulta_status = "SELECT * FROM `queen_status` WHERE `valor` = '$status'";
 
-    echo json_encode($status);
+    //echo json_encode($status);
 
     try{
         $fila = mysqli_query($conexion, $consulta_status);
