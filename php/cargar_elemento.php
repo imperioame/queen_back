@@ -27,7 +27,7 @@ if($correo_usuario != null and $correo_usuario != ''){
     $indice = $elemento['indice_elemento'];
     $id_tablero = $elemento['id_tablero'];
     $es_lista = $elemento['es_lista'];
-    $es_lista = $elemento['realizado'];
+    $realizado = $elemento['realizado'];
     $contenido = $elemento['contenido'];
     $status = $elemento['status'];
     $fecha_deadline_recibida = $elemento['fecha_deadline'];
@@ -66,8 +66,8 @@ if($correo_usuario != null and $correo_usuario != ''){
                 //es creación.
 
                 //Preparo la consulta
-                $consulta_carga_elemento = "INSERT INTO `queen_elementos`(`indice_de_elemento`, ` es_lista`, `contenido`, `fecha_deadline`, `fecha_creacion`, `tableros_idtableros`, `status_idstatus`)
-                VALUES ('$indice','$es_lista','$contenido','$fecha_deadline','$fecha_creacion','$id_tablero','$id_status')";
+                $consulta_carga_elemento = "INSERT INTO `queen_elementos`(`indice_de_elemento`, `es_lista`, `realizado`, `contenido`, `fecha_deadline`, `fecha_creacion`, `tableros_idtableros`, `status_idstatus`)
+                VALUES ('$indice','$es_lista','$realizado','$contenido','$fecha_deadline','$fecha_creacion','$id_tablero','$id_status')";
 
                 //Lo intento inyectar
                 $exito = mysqli_query($conexion, $consulta_carga_elemento);
