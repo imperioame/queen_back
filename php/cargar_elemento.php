@@ -53,13 +53,15 @@ if($correo_usuario != null and $correo_usuario != ''){
     //averiguo el id de status del status de este elemnto
     $consulta_status = "SELECT * FROM `queen_status` WHERE `valor` = '$status'";
 
+    echo json_encode($status);
+
     try{
         $fila = mysqli_query($conexion, $consulta_status);
         if($fila){
             $columna = mysqli_fetch_assoc( $fila );
 
             $id_status = $columna['idstatus'];
-            $response['id_status_detectado'] = $id_status;
+            //$response['id_status_detectado'] = $id_status;
 
             //Averiguo si es actualización de ubn elemento existente o creación de uno nuevo
             if($id_elemento == -1 || $id_elemento == '-1' || $id_elemento == null){
@@ -86,7 +88,7 @@ if($correo_usuario != null and $correo_usuario != ''){
                 //es actualización
                 //El tablero existe - debo actualizar
                 $consulta_tablero = "UPDATE `queen_elementos` 
-                SET `indice_de_elemento`='$indice',` es_lista`='$es_lista',`contenido`='$contenido',`fecha_deadline`='$fecha_deadline',`fecha_creacion`='$fecha_creacion',`tableros_idtableros`='$id_tablero'',`status_idstatus`='$id_status'
+                SET `indice_de_elemento`='$indice',`contenido`='$contenido',`es_lista`='$es_lista',`realizado`='$realizado',`fecha_deadline`='$fecha_deadline',`fecha_creacion`='$fecha_creacion',`tableros_idtableros`='$id_tablero',`status_idstatus`='$id_status'
                 WHERE `idelementos`= '$id_elemento'";
                 
                 try{
