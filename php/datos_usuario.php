@@ -30,9 +30,9 @@ try{
     $indice_tableros = 0;
 
     $objeto_maestro_de_datos = array();
-    //Mando mensaje de éxito
+    //Mando mensaje de éxito (para el front es lo mismo que haya o no)
     $objeto_maestro_de_datos['mensaje'] = 'No hay datos del usuario';
-    $code = 404;
+    $code = 200;
 
     while ($columnas_tableros = mysqli_fetch_assoc( $fila_tableros )){
         //Busco todos los elementos del tablero actual
