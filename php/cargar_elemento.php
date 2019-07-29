@@ -21,12 +21,13 @@ var_dump('test');
 //mysqli_close($conexion);
 
 //me aseguro de obtener un correo. sinó no prosigo.
-if($correo_usuario != null and  $correo_usuario != ''){
+if($correo_usuario != null and $correo_usuario != ''){
 
     $id_elemento = $elemento['id_elemento'];
     $indice = $elemento['indice_elemento'];
     $id_tablero = $elemento['id_tablero'];
     $es_lista = $elemento['es_lista'];
+    $es_lista = $elemento['realizado'];
     $contenido = $elemento['contenido'];
     $status = $elemento['status'];
     $fecha_deadline_recibida = $elemento['fecha_deadline'];
@@ -50,7 +51,7 @@ if($correo_usuario != null and  $correo_usuario != ''){
     $fecha_creacion = date('Y-m-d', $fecha_creacion_convertida);
 
     //averiguo el id de status del status de este elemnto
-    $consulta_status = "SELECT * FROM `queen_status` WHERE `titulo` = '$status'";
+    $consulta_status = "SELECT * FROM `queen_status` WHERE `valor` = '$status'";
 
     try{
         $fila = mysqli_query($conexion, $consulta_status);

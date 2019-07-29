@@ -56,6 +56,7 @@ try{
             $elementos_a_entregar[$indice_elementos]['id_elemento'] = $columnas_elementos['idelementos'];
             $elementos_a_entregar[$indice_elementos]['indice_elemento'] = $columnas_elementos['indice_de_elemento'];
             $elementos_a_entregar[$indice_elementos]['es_lista'] = $columnas_elementos['es_lista'];
+            $elementos_a_entregar[$indice_elementos]['realizado'] = $columnas_elementos['realizado'];
             $elementos_a_entregar[$indice_elementos]['contenido'] = $columnas_elementos['contenido'];
             $elementos_a_entregar[$indice_elementos]['fecha_deadline'] = $columnas_elementos['fecha_deadline'];
             $elementos_a_entregar[$indice_elementos]['fecha_creacion'] = $columnas_elementos['fecha_creacion'];
