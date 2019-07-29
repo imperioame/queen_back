@@ -20,7 +20,7 @@ if($correo_usuario != null and  $correo_usuario != ''){
         $exito = mysqli_query($conexion, $consulta_tablero);
         if($exito){
             
-            $response['mensaje'] = 'Se ha eliminado el tablero correctamente.';
+            $response['mensaje'] = 'Se ha eliminado el elemento correctamente.';
             $code = 200;
 
         }else{
