@@ -23,7 +23,7 @@ try{
     if ($exito){
         mysqli_query($conexion, $consulta);
         $code = 200;
-        $response = 'ok';
+        $response = 'Usuario creado correctamente';
     }else{
         $response = 'Usuario ya existe';
         $code = 400;
