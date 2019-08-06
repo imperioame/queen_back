@@ -3,4 +3,4 @@ backend de la app queen
 
 
 Live test:
-id.distritografico.com.ar/queen
+http://id.distritografico.com.ar/queen
