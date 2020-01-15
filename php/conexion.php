@@ -1,5 +1,5 @@
 <?php
-$servidor = '35.222.73.132';
+$servidor = '35.222.73.132:3306';
 $usuario = 'root';
 $contrasena = 'v33black';
 $db = 'distritog_id';
