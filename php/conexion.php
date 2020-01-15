@@ -1,7 +1,7 @@
 <?php
-$servidor = 'localhost';
-$usuario = 'distritog_queen';
-$contrasena = 'HolaHola1!';
+$servidor = '35.222.73.132';
+$usuario = 'root';
+$contrasena = 'v33black';
 $db = 'distritog_id';
 
 $response = array();
