@@ -1,9 +1,8 @@
 <?php
-$servidor = '35.222.73.132';
-$usuario = 'root';
-$contrasena = 'v33black';
-$db = 'distritog_id';
-
+$servidor = 'mysql.julianmmame.com.ar';
+$db = 'test_queen_back';
+$usuario = 'queen_back';
+$contrasena = 'queen_back123';
 $response = array();
 $conexion = false;
 

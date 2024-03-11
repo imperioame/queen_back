@@ -5,19 +5,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema distritog_id
+-- Schema test_queen_back
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema distritog_id
+-- Schema test_queen_back
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `distritog_id` DEFAULT CHARACTER SET utf8 ;
-USE `distritog_id` ;
+CREATE SCHEMA IF NOT EXISTS `test_queen_back` DEFAULT CHARACTER SET utf8 ;
+USE `test_queen_back` ;
 
 -- -----------------------------------------------------
--- Table `distritog_id`.`usuarios`
+-- Table `test_queen_back`.`usuarios`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `distritog_id`.`queen_usuarios` (
+CREATE TABLE IF NOT EXISTS `test_queen_back`.`queen_usuarios` (
   `idusuarios` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(20) NOT NULL,
   `Apellido` VARCHAR(30) NOT NULL,
@@ -29,9 +29,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `distritog_id`.`tableros`
+-- Table `test_queen_back`.`tableros`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `distritog_id`.`queen_tableros` (
+CREATE TABLE IF NOT EXISTS `test_queen_back`.`queen_tableros` (
   `idtableros` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `titulo` VARCHAR(145) NOT NULL,
   `es_destacado` TINYINT(1) NOT NULL,
@@ -42,9 +42,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `distritog_id`.`status`
+-- Table `test_queen_back`.`status`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `distritog_id`.`queen_status` (
+CREATE TABLE IF NOT EXISTS `test_queen_back`.`queen_status` (
   `idstatus` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `titulo` VARCHAR(65) NOT NULL,
   `valor` VARCHAR(65) NOT NULL,
@@ -60,9 +60,9 @@ INSERT INTO `queen_status`(`titulo`, `valor`, `color`) VALUES ('En progreso','en
 INSERT INTO `queen_status`(`titulo`, `valor`, `color`) VALUES ('Realizado','realizado','7DF0D4');
 
 -- -----------------------------------------------------
--- Table `distritog_id`.`elementos`
+-- Table `test_queen_back`.`elementos`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `distritog_id`.`queen_elementos` (
+CREATE TABLE IF NOT EXISTS `test_queen_back`.`queen_elementos` (
   `idelementos` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `indice_de_elemento` INT UNSIGNED NOT NULL,
   `contenido` VARCHAR(300) NOT NULL,
@@ -77,21 +77,21 @@ CREATE TABLE IF NOT EXISTS `distritog_id`.`queen_elementos` (
   INDEX `fk_elementos_status1_idx` (`status_idstatus` ASC),
   CONSTRAINT `fk_elementos_tableros`
     FOREIGN KEY (`tableros_idtableros`)
-    REFERENCES `distritog_id`.`queen_tableros` (`idtableros`)
+    REFERENCES `test_queen_back`.`queen_tableros` (`idtableros`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_elementos_status1`
     FOREIGN KEY (`status_idstatus`)
-    REFERENCES `distritog_id`.`queen_status` (`idstatus`)
+    REFERENCES `test_queen_back`.`queen_status` (`idstatus`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `distritog_id`.`usuarios_has_tableros`
+-- Table `test_queen_back`.`usuarios_has_tableros`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `distritog_id`.`queen_usuarios_has_tableros` (
+CREATE TABLE IF NOT EXISTS `test_queen_back`.`queen_usuarios_has_tableros` (
   `usuarios_idusuarios` INT UNSIGNED NOT NULL,
   `tableros_idtableros` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`usuarios_idusuarios`, `tableros_idtableros`),
@@ -99,12 +99,12 @@ CREATE TABLE IF NOT EXISTS `distritog_id`.`queen_usuarios_has_tableros` (
   INDEX `fk_usuarios_has_tableros_usuarios1_idx` (`usuarios_idusuarios` ASC),
   CONSTRAINT `fk_usuarios_has_tableros_usuarios1`
     FOREIGN KEY (`usuarios_idusuarios`)
-    REFERENCES `distritog_id`.`queen_usuarios` (`idusuarios`)
+    REFERENCES `test_queen_back`.`queen_usuarios` (`idusuarios`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_usuarios_has_tableros_tableros1`
     FOREIGN KEY (`tableros_idtableros`)
-    REFERENCES `distritog_id`.`queen_tableros` (`idtableros`)
+    REFERENCES `test_queen_back`.`queen_tableros` (`idtableros`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
